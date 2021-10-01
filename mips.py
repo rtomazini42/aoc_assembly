@@ -131,6 +131,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         break
     if((s1[:6])=="000010"):
         saida.write("j")
+        saida.write("\n")
     elif((s1[:6])=="000011"):
         saida.write("jal")
         saida.write("\n")
