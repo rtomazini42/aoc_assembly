@@ -8,6 +8,15 @@ while(arq.readline()=!""):
 
 '''
 
+def binada(num):
+	lista = []
+	while num > 0:
+		lista.insert(0,num%2)
+		num = num/2
+		num = int(num)
+		#print(lista)
+	printar(lista)
+
 with open('entrada.txt', 'r') as arq: #Inicia leitura do arquivo txt
 	lista = arq.read().splitlines()
 
@@ -59,7 +68,6 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
 
     while((s1[:6])=="000000"): # identifica tipo R
         if((s1[26:])=="100000"):
-           #print("add")
            saida.write("add")
            saida.write("\n")
         elif((s1[26:])=="100001"):
@@ -166,7 +174,16 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         saida.write("lbu")
         saida.write("\n")
     elif((s1[:6])=="001111"):
-        saida.write("lui")
+        print(s1)
+        saida.write("lui $")
+        temp = bin(int(s1[11:16]))
+        saida.write(str(int(temp, 2)) + ", ")
+        temp2 = bin(int(s1[16:21]))
+        print(temp2)
+        temp2 = int(temp2,2)
+        #print(type(temp2))
+        saida.write(str(temp))
+
         saida.write("\n")
     elif((s1[:6])=="100011"):
         saida.write("lw")
