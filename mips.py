@@ -7,28 +7,36 @@ while(arq.readline()=!""):
     print(a)
 
 '''
+def converter(s):
+    i=0
+    soma=0
+    temp=0
+    ind=len(s)-1
+    while(i<len(s)):
+        if(s[ind]=="1"):
+            temp=pow(2, i)
+            soma+=temp
+    
+        ind-=1
 
-def binada(num):
-	lista = []
-	while num > 0:
-		lista.insert(0,num%2)
-		num = num/2
-		num = int(num)
-		#print(lista)
-	printar(lista)
+        i+=1
+
+    return soma
 
 with open('entrada.txt', 'r') as arq: #Inicia leitura do arquivo txt
 	lista = arq.read().splitlines()
+#reg=["00000","00001", "00010", "00011","000100","00101", "00110","00111","01000","01001","01010","01011","01100","01101","01110","01111","10000","10001","10010","10011","10100","10101","10110","10111","11000","11001","11010","11011","11100","11101","11110","11111"]
 
-saida = open('saida.txt', 'w')
+saida= open('saida.txt', 'w')
 
+func=""
 cont=0
 
 while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
     s1=""
     a=lista[cont]
     h=(a[2:])
-
+  
     for i in h:
         if(i=='0'):
             s='0000'
@@ -62,150 +70,198 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             s='1110'
         elif(i=='f'):
             s='1111'
-
-
+            
+               
         s1=s1+s
 
     while((s1[:6])=="000000"): # identifica tipo R
         if((s1[26:])=="100000"):
-           saida.write("add")
-           saida.write("\n")
+            func="add"                  
         elif((s1[26:])=="100001"):
-            saida.write("addu")
-            saida.write("\n")
+            func="addu"
         elif((s1[26:])=="100100"):
-            saida.write("and")
-            saida.write("\n")
+            func="and"
         elif((s1[26:])=="011010"):
-            saida.write("div")
-            saida.write("\n")
+            func="div"
         elif((s1[26:])=="011011"):
-            saida.write("divu")
-            saida.write("\n")
+            func="divu"
         elif((s1[26:])=="001000"):
-            saida.write("jr")
-            saida.write("\n")
+            func="jr"
         elif((s1[26:])=="010000"):
-            saida.write("mfhi")
-            saida.write("\n")
+            func="mfhi"
         elif((s1[26:])=="010010"):
-            saida.write("mflo")
-            saida.write("\n")
+            func="mflo"
         elif((s1[26:])=="011000"):
-            saida.write("mult")
-            saida.write("\n")
+            func="mult"
         elif((s1[26:])=="011001"):
-            saida.write("multu")
-            saida.write("\n")
+            func="multu"
         elif((s1[26:])=="100111"):
-            saida.write("nor")
-            saida.write("\n")
+            func="nor"
         elif((s1[26:])=="100101"):
-            saida.write("or")
-            saida.write("\n")
+            func="or"
         elif((s1[26:])=="000000"):
-            saida.write("sll")
-            saida.write("\n")
+            func="sll"
         elif((s1[26:])=="000100"):
-            saida.write("sllv")
-            saida.write("\n")
+            func="sllv"
         elif((s1[26:])=="101010"):
-            saida.write("slt")
-            saida.write("\n")
+            func="slt"
         elif((s1[26:])=="000011"):
-            saida.write("sra")
-            saida.write("\n")
+            func="sra"
         elif((s1[26:])=="000111"):
-            saida.write("srav")
-            saida.write("\n")
+            func="srav"
         elif((s1[26:])=="000010"):
-            saida.write("srl")
-            saida.write("\n")
+            func="srl"
         elif((s1[26:])=="000110"):
-            saida.write("srlv")
-            saida.write("\n")
+            func="srlv"
         elif((s1[26:])=="100010"):
-            saida.write("sub")
-            saida.write("\n")
+            func="sub"
         elif((s1[26:])=="100011"):
-            saida.write("subu")
-            saida.write("\n")
+            func="subu"
         elif((s1[26:])=="001100"):
-            saida.write("syscall")
-            saida.write("\n")
+            func="syscall"
         elif((s1[26:])=="100110"):
-            saida.write("xor")
-            saida.write("\n")
+            func="xor"
+                
         break
+    
     if((s1[:6])=="000010"):
-        saida.write("j")
-        saida.write("\n")
+        func="j"
     elif((s1[:6])=="000011"):
-        saida.write("jal")
-        saida.write("\n")
+        func="jal"
     elif((s1[:6])=="001000"):
-        saida.write("addi")
-        saida.write("\n")
+        func="addi"
     elif((s1[:6])=="001001"):
-        saida.write("addiu")
-        saida.write("\n")
-    elif((s1[:6])=="001100"):
-        saida.write("andi")
-        saida.write("\n")
+        func="addiu"
     elif((s1[:6])=="000111"):
-        saida.write("bgtz")
-        saida.write("\n")
+        func="bgtz"
     elif((s1[:6])=="000100"):
-        saida.write("beq")
-        saida.write("\n")
+        func="beq"
     elif((s1[:6])=="000001"):
-        saida.write("bltz")
-        saida.write("\n")
+        func="bltz"
     elif((s1[:6])=="000110"):
-        saida.write("blez")
-        saida.write("\n")
+        func="blez"
     elif((s1[:6])=="000101"):
-        saida.write("bne")
-        saida.write("\n")
+        func="bne"
     elif((s1[:6])=="100000"):
-        saida.write("lb")
-        saida.write("\n")
+        func="lb"
     elif((s1[:6])=="100100"):
-        saida.write("lbu")
-        saida.write("\n")
+        func="lbu"
     elif((s1[:6])=="001111"):
-        print(s1)
-        saida.write("lui $")
-        temp = bin(int(s1[11:16]))
-        saida.write(str(int(temp, 2)) + ", ")
-        temp2 = bin(int(s1[16:21]))
-        print(temp2)
-        temp2 = int(temp2,2)
-        #print(type(temp2))
-        saida.write(str(temp))
-
-        saida.write("\n")
+        func="lui"
     elif((s1[:6])=="100011"):
-        saida.write("lw")
-        saida.write("\n")
+        func="lw"
     elif((s1[:6])=="001101"):
-        saida.write("ori")
-        saida.write("\n")
+        func="ori"
     elif((s1[:6])=="101000"):
-        saida.write("sb")
-        saida.write("\n")
+        func="sb"
     elif((s1[:6])=="001010"):
-        saida.write("slti")
-        saida.write("\n")
+        func="slti"
     elif((s1[:6])=="101011"):
-        saida.write("sw")
-        saida.write("\n")
+        func="sw"
     elif((s1[:6])=="001110"):
-        saida.write("xori")
-        saida.write("\n")
-
-    #print(s1)
-
+        func="xori"
+    elif((s1[:6])=="001100"):
+        func="andi"
 
 
+    if(func=="add" or func=="sub" or func=="slt" or func=="and" or func=="or" or func=="xor" or func=="nor" or func=="addu" or func=="subu"):
+               
+        rs=converter(s1[6:11])
+        rt=converter(s1[11:16])
+        rd=converter(s1[16:21])
+       
+        saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt)) 
+
+
+    elif(func=="sll" or func=="srl" or func=="sra"):
+        
+        sh=converter(s1[21:26])
+
+        saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+
+
+    elif(func=="sllv" or func=="srlv" or func=="srav"):
+
+       saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+
+    elif(func=="mfhi" or func=="mflo"or func=="jr"):
+
+        saida.write("{}\t${}\n".format(func, rd))
+
+    elif(func=="div" or func=="divu" or func=="mult" or func=="multu"):
+
+        saida.write("{}\t${}\t${}\n".format(func, rd, rs))
+
+
+    elif(func=="addi" or func=="slti" or func=="andi" or func=="ori" or func=="xori" or func=="beq" or func=="bne" or func=="addiu"):
+        operando=converter(s1[16:])
+        
+
+        saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+
+    elif(func=="lw" or func=="sw" or func=="lb" or func=="lbu" or func=="sb"):
+
+        saida.write("{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
+    elif(func=="lui" or func=="bltz"):
+
+        rs=converter(s1[6:11])
+        operando=converter(s1[16:])
+
+        saida.write("{}\t${}\t{}\n".format(func, rs, operando))
+
+    elif(func=="j" or func=="jal"):
+
+        jump=converter(s1[:6])
+
+        saida.write("{}\t{}\n".format(func,jump))
+
+
+    if(func=="syscall"):
+
+        saida.write("{}\n". format(func))
+            
+        
+        
+
+    
+
+    
+
+        
+
+        
+
+  
+
+
+
+
+    
+   
+    
+
+        
+        
     cont+=1
+    
+
+                  
+        
+     
+       
+   
+
+
+   
+
+
+    
+    
+
+
+
+
+
+
