@@ -1,0 +1,48 @@
+jal	3
+addu	$4	$0	$2
+jal	3
+addu	$8	$0	$2
+addiu	$8	$0	4
+lui	$0	4097
+ori	$8	$0	19
+syscall
+addiu	$8	$0	1
+addu	$4	$0	$8
+syscall
+addiu	$4	$0	10
+syscall
+addi	$4	$0	8
+sub	$29	$29	$1
+sw	$29	8($29)
+sw	$29	8($29)
+bne	$29	$29	3
+addiu	$29	$29	1
+addi	$29	$29	8
+jr	$29
+addi	$29	$29	1
+sub	$4	$4	$1
+jal	3
+lw	$4	1($4)
+addi	$4	$4	8
+mult	$4	$4
+mflo	$4
+jr	$4
+addiu	$4	$4	4
+lui	$0	4097
+ori	$4	$0	0
+syscall
+addiu	$4	$0	5
+syscall
+jr	$4
+addu	$8	$0	$4
+beq	$8	$0	7
+addu	$9	$0	$4
+addi	$9	$0	1
+sub	$9	$9	$1
+beq	$9	$9	4
+mult	$9	$9
+mflo	$9
+j	2
+addiu	$9	$9	1
+addu	$2	$0	$8
+jr	$2

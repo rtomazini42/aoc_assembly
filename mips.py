@@ -1,3 +1,15 @@
+reg = []
+def inicia_reg():
+    for n in range(33): #preenche com 0 os registradores
+        reg.append(0)
+
+def imprime():
+    for n in range(33):
+        print("$" + str(n) + "="+ str(reg[n]), end=" ") #imprime os registradores formatado :)
+
+
+inicia_reg() #inicia os registradores
+imprime() #imprime os registradores
 
 '''
 arq = open ('entrada.txt', 'r')
@@ -16,7 +28,7 @@ def converter(s):
         if(s[ind]=="1"):
             temp=pow(2, i)
             soma+=temp
-    
+
         ind-=1
 
         i+=1
@@ -36,7 +48,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
     s1=""
     a=lista[cont]
     h=(a[2:])
-  
+
     for i in h:
         if(i=='0'):
             s='0000'
@@ -70,13 +82,13 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             s='1110'
         elif(i=='f'):
             s='1111'
-            
-               
+
+
         s1=s1+s
 
     while((s1[:6])=="000000"): # identifica tipo R
         if((s1[26:])=="100000"):
-            func="add"                  
+            func="add"
         elif((s1[26:])=="100001"):
             func="addu"
         elif((s1[26:])=="100100"):
@@ -121,9 +133,9 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             func="syscall"
         elif((s1[26:])=="100110"):
             func="xor"
-                
+
         break
-    
+
     if((s1[:6])=="000010"):
         func="j"
     elif((s1[:6])=="000011"):
@@ -165,16 +177,16 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
 
 
     if(func=="add" or func=="sub" or func=="slt" or func=="and" or func=="or" or func=="xor" or func=="nor" or func=="addu" or func=="subu"):
-               
+
         rs=converter(s1[6:11])
         rt=converter(s1[11:16])
         rd=converter(s1[16:21])
-       
-        saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt)) 
+
+        saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
 
 
     elif(func=="sll" or func=="srl" or func=="sra"):
-        
+
         sh=converter(s1[21:26])
 
         saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
@@ -196,8 +208,8 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
 
     elif(func=="addi" or func=="slti" or func=="andi" or func=="ori" or func=="xori" or func=="beq" or func=="bne" or func=="addiu"):
         operando=converter(s1[16:])
-        
 
+        rd = ""
         saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
 
     elif(func=="lw" or func=="sw" or func=="lb" or func=="lbu" or func=="sb"):
@@ -221,47 +233,27 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
     if(func=="syscall"):
 
         saida.write("{}\n". format(func))
-            
-        
-        
-
-    
-
-    
-
-        
-
-        
-
-  
 
 
 
 
-    
-   
-    
 
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     cont+=1
-    
-
-                  
-        
-     
-       
-   
-
-
-   
-
-
-    
-    
-
-
-
-
-
-

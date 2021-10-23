@@ -1,40 +1,17 @@
-lui	$0	100
-add	$1	$2	$3
-sub	$1	$2	$3
-slt	$1	$2	$3
-addi	$1	$2	100
-slti	$1	$2	100
-and	$1	$2	$3
-or	$1	$2	$3
-xor	$1	$2	$3
-nor	$1	$2	$3
-andi	$1	$2	100
-ori	$1	$2	100
-xori	$1	$2	100
-lw	$1	100($2)
-sw	$1	100($2)
+lui	$0	4097
+ori	$	$0	0
+addiu	$	$0	6
+addiu	$	$0	0
+addiu	$	$0	0
+slt	$19	$18	$17
+add	$10	$10	$16
+lw	$10	0($10)
+addi	$	$10	1
+slt	$19	$18	$17
+sll	$19	$18	2
+add	$10	$10	$16
+lw	$10	1($10)
+slt	$12	$11	$9
+beq	$	$11	65528
+addi	$	$11	0
 j	2
-jr	$1
-bltz	$1	65518
-beq	$1	$1	65517
-bne	$1	$1	65516
-mfhi	$1
-mflo	$1
-addu	$1	$2	$3
-subu	$1	$2	$3
-mult	$1	$2
-multu	$1	$2
-div	$1	$2
-divu	$1	$2
-addiu	$1	$2	100
-sll	$1	$2	10
-srl	$1	$2	10
-sra	$1	$2	10
-sllv	$1	$2	$3
-srlv	$1	$2	$3
-srav	$1	$2	$3
-lb	$1	100($2)
-lbu	$1	100($2)
-sb	$1	100($2)
-jal	3
-syscall
