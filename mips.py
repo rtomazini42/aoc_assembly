@@ -1,20 +1,28 @@
-reg = []
-def inicia_reg():
-    for n in range(33): #preenche com 0 os registradores
-        reg.append(0)
+'''Projeto MIPS - 2 entrega
+Andre Monteiro
+Luiz José
+Paulo Aureliano
+Fábio Hatem
+Renan Tomazini'''
+
+saida= open('saida.txt', 'w')
 
 def imprime():
-    for n in range(33):
+    for n in range(32):
         print("$" + str(n) + "="+ str(reg[n]), end=" ") #imprime os registradores formatado :)
+        saida.write("$" + str(n) + "="+ str(reg[n]))
+reg=[0,0,6,5,8,10,12,15,2,8,11,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #Inicia Banco de Registradores
 
-
-inicia_reg() #inicia os registradores
+#inicia_reg() #inicia os registradores
 imprime() #imprime os registradores
+print()
 
-'''
+
+
+
 arq = open ('entrada.txt', 'r')
-
-while(arq.readline()=!""):
+'''
+while(arq.readline()!=""):
     a=arq.readline()
     print(a)
 
@@ -37,9 +45,8 @@ def converter(s):
 
 with open('entrada.txt', 'r') as arq: #Inicia leitura do arquivo txt
 	lista = arq.read().splitlines()
-#reg=["00000","00001", "00010", "00011","000100","00101", "00110","00111","01000","01001","01010","01011","01100","01101","01110","01111","10000","10001","10010","10011","10100","10101","10110","10111","11000","11001","11010","11011","11100","11101","11110","11111"]
 
-saida= open('saida.txt', 'w')
+
 
 func=""
 cont=0
@@ -182,78 +189,258 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         rt=converter(s1[11:16])
         rd=converter(s1[16:21])
 
-        saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+        if(func=="add"):
+            reg[rd]=reg[rs]+reg[rt]
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
 
+        elif(func=="sub"):
+            reg[rd]=reg[rs]-reg[rt]
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
 
-    elif(func=="sll" or func=="srl" or func=="sra"):
+        elif(func=="and"):
+            reg[rd]=reg[rs] & reg[rt]
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
+
+        elif(func=="or"):
+            reg[rd]=reg[rs]|reg[rt]
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
+
+        elif(func=="xor"):
+            reg[rd]=reg[rs]^reg[rt]
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
+
+        elif(func=="slt"):
+            if(reg[rs]<reg[rt]):
+                reg[rd]=1
+            else:
+                reg[rd]=0
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            imprime()
+            print()
+
+        elif(func=="nor"):
+            
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            
+            
+        elif(func=="addu"):
+            
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+          
+            
+        elif(func=="subu"):
+            
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+           
+                
+
+    elif(func=="sll" or func=="srl" or func=="sra"):   
 
         sh=converter(s1[21:26])
 
-        saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+        if(func=="sll"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+
+        elif(func=="srl"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+
+        elif(func=="sra"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            
+       
 
 
     elif(func=="sllv" or func=="srlv" or func=="srav"):
 
-       saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+        if(func=="sllv"):
+            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+        elif(func=="srlv"):
+            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+        elif(func=="srav"):
+            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            
+     
 
 
     elif(func=="mfhi" or func=="mflo"or func=="jr"):
 
-        saida.write("{}\t${}\n".format(func, rd))
+        if(func=="mfhi"):
+            saida.write("\n{}\t${}\n".format(func, rd))
+            print("\n{}\t${}\n".format(func, rd))
+
+        if(func=="mflo"):
+            saida.write("\n{}\t${}\n".format(func, rd))
+            print("\n{}\t${}\n".format(func, rd))
+
+        if(func=="jr"):
+            saida.write("\n{}\t${}\n".format(func, rd))
+            print("\n{}\t${}\n".format(func, rd))
+            
+        
 
     elif(func=="div" or func=="divu" or func=="mult" or func=="multu"):
 
-        saida.write("{}\t${}\t${}\n".format(func, rd, rs))
+        if(func=="div"):
+            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
+            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+
+        if(func=="divu"):
+            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
+            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+
+        if(func=="mult"):
+            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
+            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+
+        if(func=="multu"):
+            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
+            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+
 
 
     elif(func=="addi" or func=="slti" or func=="andi" or func=="ori" or func=="xori" or func=="beq" or func=="bne" or func=="addiu"):
         operando=converter(s1[16:])
 
-        rd = ""
-        saida.write("{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+        if(func=="addi"):
+            reg[rd]=reg[rs]+operando
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            imprime()
+            print()
+
+        elif(func=="slti"):
+            if(reg[rs]<operando):
+                reg[rd]=1
+            else:
+                reg[rd]=0
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            imprime()
+            print()
+
+        elif(func=="andi"):
+            reg[rd]=reg[rs]&operando
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            imprime()
+            print()
+
+        elif(func=="ori"):
+            reg[rd]=reg[rs]|operando
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            imprime()
+            print()
+
+        elif(func=="xori"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+
+        elif(func=="beq"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+
+        elif(func=="bne"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+
+        elif(func=="addiu"):
+            saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+
+        
+            
+       
 
     elif(func=="lw" or func=="sw" or func=="lb" or func=="lbu" or func=="sb"):
 
-        saida.write("{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+        if(func=="lw"):
+            saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
+        elif(func=="sw"):
+            saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
+        elif(func=="lb"):
+            saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
+        elif(func=="lbu"):
+            saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
+        elif(func=="sb"):
+            saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            
+
+        
 
     elif(func=="lui" or func=="bltz"):
 
         rs=converter(s1[6:11])
         operando=converter(s1[16:])
 
-        saida.write("{}\t${}\t{}\n".format(func, rs, operando))
+        if(func=="lui"):
+            saida.write("\n{}\t${}\t{}\n".format(func, rs, operando))
+            print("\n{}\t${}\t{}\n".format(func, rs, operando))
+            
+        elif(func=="bltz"):
+            saida.write("\n{}\t${}\t{}\n".format(func, rs, operando))
+            print("\n{}\t${}\t{}\n".format(func, rs, operando))
+
+        
 
     elif(func=="j" or func=="jal"):
 
         jump=converter(s1[:6])
 
-        saida.write("{}\t{}\n".format(func,jump))
+        if(func=="j"):
+            saida.write("\n{}\t{}\n".format(func,jump))
+            print("\n{}\t{}\n".format(func,jump))
 
+        elif(func=="jal"):
+            saida.write("\n{}\t{}\n".format(func,jump))
+            print("\n{}\t{}\n".format(func,jump))
+            
+            
+    elif(func=="syscall"):
 
-    if(func=="syscall"):
-
-        saida.write("{}\n". format(func))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        saida.write("\n{}\n".format(func))
+        print("\n{}\n".format(func))
 
 
 
 
     cont+=1
+
+print("Gravado em saida.txt")
+saida.close()
