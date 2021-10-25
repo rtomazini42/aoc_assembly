@@ -9,7 +9,7 @@ saida= open('saida.txt', 'w')
 
 def imprime():
     for n in range(32):
-        print("$" + str(n) + "="+ str(reg[n]), end=" ") #imprime os registradores formatado :)
+        print("$" + str(n) + "="+ str(reg[n]), end="") #imprime os registradores formatado :)
         saida.write("$" + str(n) + "="+ str(reg[n]))
 reg=[0,0,6,5,8,10,12,15,2,8,11,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #Inicia Banco de Registradores
 
@@ -17,10 +17,11 @@ reg=[0,0,6,5,8,10,12,15,2,8,11,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #Inici
 imprime() #imprime os registradores
 print()
 
+HI=0 # inicializa o HI
+LO=0 # inicializa o LO
 
 
-
-arq = open ('entrada.txt', 'r')
+#arq = open ('entrada_02.txt', 'r')
 '''
 while(arq.readline()!=""):
     a=arq.readline()
@@ -292,12 +293,18 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
     elif(func=="mfhi" or func=="mflo"or func=="jr"):
 
         if(func=="mfhi"):
+            reg[rd]=HI
             saida.write("\n{}\t${}\n".format(func, rd))
             print("\n{}\t${}\n".format(func, rd))
+            imprime()
+            print()
 
         if(func=="mflo"):
+            reg[rd]=LO
             saida.write("\n{}\t${}\n".format(func, rd))
             print("\n{}\t${}\n".format(func, rd))
+            imprime()
+            print()
 
         if(func=="jr"):
             saida.write("\n{}\t${}\n".format(func, rd))
@@ -308,20 +315,28 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
     elif(func=="div" or func=="divu" or func=="mult" or func=="multu"):
 
         if(func=="div"):
-            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
-            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+            LO=reg[rs]/reg[rt]
+            HI=reg[rs]%reg[rt]
+            saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            print("\n{}\t${}\t${}\n".format(func, rs, rt))
+            imprime()
+            print()
 
         if(func=="divu"):
-            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
-            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+            LO=reg[rs]/reg[rt]
+            HI=reg[rs]%reg[rt]
+            saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            print("\n{}\t${}\t${}\n".format(func, rs, rt))
+            imprime()
+            print()
 
         if(func=="mult"):
-            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
-            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+            saida.write("\n{}\t${}\t${}\n".format(func, rs, rd))
+            print("\n{}\t${}\t${}\n".format(func, rs, rt))
 
         if(func=="multu"):
-            saida.write("\n{}\t${}\t${}\n".format(func, rd, rs))
-            print("\n{}\t${}\t${}\n".format(func, rd, rs))
+            saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            print("\n{}\t${}\t${}\n".format(func, rs, rt))
 
 
 
