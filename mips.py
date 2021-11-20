@@ -48,10 +48,10 @@ def converter(s):
 
 valorMemoria = "MEM[0]"
 
-def printaMemoria():
+def printaMemoria(): #printa os valores de memoria
     print(valorMemoria)
 
-def modificaMemoria(rd,operando, rs):
+def modificaMemoria(rd,operando, rs): #funcao que modifica memoria
     print(operando)
     print(rs)
     posicao = operando + rs
