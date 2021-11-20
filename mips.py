@@ -11,6 +11,8 @@ def imprime():
     for n in range(32):
         print("$" + str(n) + "="+ str(reg[n]), end="") #imprime os registradores formatado :)
         saida.write("$" + str(n) + "="+ str(reg[n]))
+
+    saida.write("\n")
 reg=[0,0,6,5,8,10,12,15,2,8,11,4,5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] #Inicia Banco de Registradores
 
 #inicia_reg() #inicia os registradores
@@ -43,6 +45,23 @@ def converter(s):
         i+=1
 
     return soma
+
+valorMemoria = "MEM[0]"
+
+def printaMemoria():
+    print(valorMemoria)
+
+def modificaMemoria(rd,operando, rs):
+    print(operando)
+    print(rs)
+    posicao = operando + rs
+    valor = rd
+    print(rd)
+    global valorMemoria
+    valorMemoria = "MEM["+str(posicao)+":"+str(valor)+"]"
+    printaMemoria()
+
+
 
 with open('entrada.txt', 'r') as arq: #Inicia leitura do arquivo txt
 	lista = arq.read().splitlines()
@@ -193,13 +212,16 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         if(func=="add"):
             reg[rd]=reg[rs]+reg[rt]
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            #printaMemoria()
             imprime()
             print()
 
         elif(func=="sub"):
             reg[rd]=reg[rs]-reg[rt]
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
             imprime()
             print()
@@ -207,6 +229,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         elif(func=="and"):
             reg[rd]=reg[rs] & reg[rt]
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
             imprime()
             print()
@@ -214,6 +237,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         elif(func=="or"):
             reg[rd]=reg[rs]|reg[rt]
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
             imprime()
             print()
@@ -221,6 +245,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         elif(func=="xor"):
             reg[rd]=reg[rs]^reg[rt]
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
             imprime()
             print()
@@ -231,63 +256,73 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             else:
                 reg[rd]=0
             saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
             imprime()
             print()
 
         elif(func=="nor"):
-            
-            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-            
-            
-        elif(func=="addu"):
-            
-            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-          
-            
-        elif(func=="subu"):
-            
-            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-           
-                
 
-    elif(func=="sll" or func=="srl" or func=="sra"):   
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+
+        elif(func=="addu"):
+
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+
+        elif(func=="subu"):
+
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
+            print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+
+
+
+    elif(func=="sll" or func=="srl" or func=="sra"):
 
         sh=converter(s1[21:26])
 
         if(func=="sll"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
 
         elif(func=="srl"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
 
         elif(func=="sra"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, sh))
-            
-       
+
+
 
 
     elif(func=="sllv" or func=="srlv" or func=="srav"):
 
         if(func=="sllv"):
-            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
 
         elif(func=="srlv"):
-            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
 
         elif(func=="srav"):
-            saida.write("{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t${}\n".format(func, rd, rs, rt))
-            
-     
+
+
 
 
     elif(func=="mfhi" or func=="mflo"or func=="jr"):
@@ -295,6 +330,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         if(func=="mfhi"):
             reg[rd]=HI
             saida.write("\n{}\t${}\n".format(func, rd))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\n".format(func, rd))
             imprime()
             print()
@@ -302,15 +338,17 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         if(func=="mflo"):
             reg[rd]=LO
             saida.write("\n{}\t${}\n".format(func, rd))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\n".format(func, rd))
             imprime()
             print()
 
         if(func=="jr"):
             saida.write("\n{}\t${}\n".format(func, rd))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\n".format(func, rd))
-            
-        
+
+
 
     elif(func=="div" or func=="divu" or func=="mult" or func=="multu"):
 
@@ -318,6 +356,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             LO=reg[rs]/reg[rt]
             HI=reg[rs]%reg[rt]
             saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\n".format(func, rs, rt))
             imprime()
             print()
@@ -326,16 +365,19 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             LO=reg[rs]/reg[rt]
             HI=reg[rs]%reg[rt]
             saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\n".format(func, rs, rt))
             imprime()
             print()
 
         if(func=="mult"):
             saida.write("\n{}\t${}\t${}\n".format(func, rs, rd))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\n".format(func, rs, rt))
 
         if(func=="multu"):
             saida.write("\n{}\t${}\t${}\n".format(func, rs, rt))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\n".format(func, rs, rt))
 
 
@@ -346,6 +388,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         if(func=="addi"):
             reg[rd]=reg[rs]+operando
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
             imprime()
             print()
@@ -356,6 +399,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
             else:
                 reg[rd]=0
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
             imprime()
             print()
@@ -363,6 +407,7 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         elif(func=="andi"):
             reg[rd]=reg[rs]&operando
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
             imprime()
             print()
@@ -370,54 +415,66 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
         elif(func=="ori"):
             reg[rd]=reg[rs]|operando
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
             imprime()
             print()
 
         elif(func=="xori"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
 
         elif(func=="beq"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
 
         elif(func=="bne"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
 
         elif(func=="addiu"):
             saida.write("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t${}\t{}\n".format(func, rd, rs, operando))
 
-        
-            
-       
+
+
+
 
     elif(func=="lw" or func=="sw" or func=="lb" or func=="lbu" or func=="sb"):
 
         if(func=="lw"):
             saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
 
         elif(func=="sw"):
             saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            modificaMemoria(rd,operando, rs)
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+
 
         elif(func=="lb"):
             saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
 
         elif(func=="lbu"):
             saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
 
         elif(func=="sb"):
             saida.write("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}(${})\n".format(func, rd, operando, rs))
-            
 
-        
+
+
 
     elif(func=="lui" or func=="bltz"):
 
@@ -426,13 +483,15 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
 
         if(func=="lui"):
             saida.write("\n{}\t${}\t{}\n".format(func, rs, operando))
-            print("\n{}\t${}\t{}\n".format(func, rs, operando))
-            
-        elif(func=="bltz"):
-            saida.write("\n{}\t${}\t{}\n".format(func, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t${}\t{}\n".format(func, rs, operando))
 
-        
+        elif(func=="bltz"):
+            saida.write("\n{}\t${}\t{}\n".format(func, rs, operando))
+            saida.write("{}\n".format(valorMemoria))
+            print("\n{}\t${}\t{}\n".format(func, rs, operando))
+
+
 
     elif(func=="j" or func=="jal"):
 
@@ -440,16 +499,19 @@ while(cont<len(lista)): #Ler a lista e começa converter hexa -> bin
 
         if(func=="j"):
             saida.write("\n{}\t{}\n".format(func,jump))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t{}\n".format(func,jump))
 
         elif(func=="jal"):
             saida.write("\n{}\t{}\n".format(func,jump))
+            saida.write("{}\n".format(valorMemoria))
             print("\n{}\t{}\n".format(func,jump))
-            
-            
+
+
     elif(func=="syscall"):
 
         saida.write("\n{}\n".format(func))
+        saida.write("{}\n".format(valorMemoria))
         print("\n{}\n".format(func))
 
 
